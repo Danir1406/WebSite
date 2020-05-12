@@ -43,7 +43,7 @@
     </div>
 </div>
 {% endfor %}
-{% if not followed %}
+{% if followed %}
 <nav>
     <ul class="pagination justify-content-center">
         <li {% if not pages.has_prev %}
@@ -51,7 +51,7 @@
             {% else %}
             class="page-item"
             {% endif %}>
-            <a class="page-link" href="/blog?page={{ pages.prev_num }}{% if q %}&q={{ q }} {% endif %}">
+            <a class="page-link" href="/blog/followed?page={{ pages.prev_num }}{% if q %}&q={{ q }} {% endif %}">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -61,7 +61,7 @@
             {% else %}
             class="page-item"
             {% endif %}>
-            <a class="page-link" href="/blog?page={{ page }}{% if q %}&q={{ q }} {% endif %}">{{ page }}</a>
+            <a class="page-link" href="/blog/followed?page={{ page }}{% if q %}&q={{ q }} {% endif %}">{{ page }}</a>
         </li>
         {% endfor %}
         <li {% if not pages.has_next %}
@@ -69,7 +69,7 @@
             {% else %}
             class="page-item"
             {% endif %}>
-            <a class="page-link" href="blog?page={{ pages.next_num }}{% if q %}&q={{ q }} {% endif %}">
+            <a class="page-link" href="blog/followed?page={{ pages.next_num }}{% if q %}&q={{ q }} {% endif %}">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
@@ -115,7 +115,7 @@
             {% else %}
             class="page-item"
             {% endif %}>
-            <a class="page-link" href="/blog/followed?page={{ pages.prev_num }}{% if q %}&q={{ q }} {% endif %}">
+            <a class="page-link" href="/blog?page={{ pages.prev_num }}{% if q %}&q={{ q }} {% endif %}">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -125,7 +125,7 @@
             {% else %}
             class="page-item"
             {% endif %}>
-            <a class="page-link" href="/blog/followed?page={{ page }}{% if q %}&q={{ q }} {% endif %}">{{ page }}</a>
+            <a class="page-link" href="/blog?page={{ page }}{% if q %}&q={{ q }} {% endif %}">{{ page }}</a>
         </li>
         {% endfor %}
         <li {% if not pages.has_next %}
@@ -133,7 +133,7 @@
             {% else %}
             class="page-item"
             {% endif %}>
-            <a class="page-link" href="blog/followed?page={{ pages.next_num }}{% if q %}&q={{ q }} {% endif %}">
+            <a class="page-link" href="blog?page={{ pages.next_num }}{% if q %}&q={{ q }} {% endif %}">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
