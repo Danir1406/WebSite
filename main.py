@@ -288,9 +288,10 @@ def my_posts():
     else:
         page = 1
     if q:
-        posts = Posts.query.filter(Posts.user_id == current_user.id).filter((Posts.title.contains(q)) | (Posts.content.contains(q)))
+        posts = Posts.query.filter(Posts.user_id == current_user.id).filter(
+            (Posts.title.contains(q)) | (Posts.content.contains(q))).order_by(Posts.created_date.desc())
     else:
-        posts = Posts.query.filter(Posts.user_id == current_user.id)
+        posts = Posts.query.filter(Posts.user_id == current_user.id).order_by(Posts.created_date.desc())
     pages = posts.paginate(page, per_page=5)
     return render_template('blog.html', k='1', pages=pages, User=User, q=q, my='1')
 
