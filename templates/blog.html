@@ -75,6 +75,39 @@
         </li>
     </ul>
 </nav>
+{% if my %}
+
+<nav>
+    <ul class="pagination justify-content-center">
+        <li %} %} %} class="page-item disabled" class="page-item"
+            else
+            endif if not
+            pages.has_prev
+            {% {% {%>
+            <a class="page-link" href="/blog/my_posts?page={{ pages.prev_num }}{% if q %}&q={{ q }} {% endif %}">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for page in pages.iter_pages() %}
+        <li %} %} %} class="page-item active" class="page-item"
+            else
+            endif if page==
+            pages.page
+            {% {% {%>
+            <a class="page-link" href="/blog/my_posts?page={{ page }}{% if q %}&q={{ q }} {% endif %}">{{ page }}</a>
+        </li>
+        {% endfor %}
+        <li %} %} %} class="page-item disabled" class="page-item"
+            else
+            endif if not
+            pages.has_next
+            {% {% {%>
+            <a class="page-link" href="/blog/my_posts?page={{ pages.next_num }}{% if q %}&q={{ q }} {% endif %}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 {% else %}
 <nav>
     <ul class="pagination justify-content-center">
