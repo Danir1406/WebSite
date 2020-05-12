@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<html>
+<head>
+
+    <link href="/static/css/chats.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+<h3 align="center"></h3>
+<div class="container">
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Chat</h4>
+                    </div>
+                </div>
+                <div class="inbox_chat">
+                  {% for user in chats %}
+                  {% set last_message = chats[user][-1] %}
+                  {% set recipient = User.query.filter_by(id=last_message.sender_id).first() %}
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"><img src="{{ user.avatar(20) }}" alt="sunil"></div>
+                            <div class="chat_ib">
+                              <h6><a href="chat/{{ user.name }}">{{ user.name }}</a><span class="chat_date">{% if last_message.body != 'text' %}{{ moment(last_message.created_date).calendar() }}{% endif %}</span></h6>
+                                {% if last_message.body != 'text' %}
+                                <p>{{ recipient.name }}:
+                                    {{ last_message.body[:20] }}...</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

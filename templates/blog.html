@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dropdown col-md-2 m-2">
+    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+        Сортировка
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% if followed %}
+        <a class="dropdown-item" href="/blog">Все посты</a>
+        <a class="dropdown-item" href="/blog/my_posts">Ваши посты</a>
+        <a class="dropdown-item active" href="/blog/followed">Ваши посты и посты людей, на которых вы подписаны</a>
+        {% elif my %}
+        <a class="dropdown-item" href="/blog">Все посты</a>
+        <a class="dropdown-item active" href="/blog/my_posts">Ваши посты</a>
+        <a class="dropdown-item" href="/blog/followed">Ваши посты и посты людей, на которых вы подписаны</a>
+        {% else %}
+        <a class="dropdown-item active" href="/blog">Все посты</a>
+        <a class="dropdown-item" href="/blog/my_posts">Ваши посты</a>
+        <a class="dropdown-item" href="/blog/followed">Ваши посты и посты людей, на которых вы подписаны</a>
+        {% endif %}
+    </div>
+</div>
+
+{% for post in pages.items %}
+<div class="col-md-11 m-2">
+    <div class="card mb-4 box-shadow h-md-250">
+        <div class="card-header">
+            <a href="/user/{{ User.query.filter(User.id == post.user_id).first().name }}">
+                <img src="{{ User.query.filter(User.id == post.user_id).first().avatar(36) }}">
+                {{ User.query.filter(User.id == post.user_id).first().name }}</a>
+        </div>
+        <div class="card-body d-flex flex-column align-items-start">
+            <h3 class="mb-0">
+                <a class="text-dark" href="#">{{ post.title }}</a>
+            </h3>
+            <p class="card-text mb-auto">{{ post.content }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            {{ moment(post.created_date).calendar() }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% if not followed %}
+<nav>
+    <ul class="pagination justify-content-center">
+        <li {% if not pages.has_prev %}
+            class="page-item disabled"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="/blog?page={{ pages.prev_num }}{% if q %}&q={{ q }} {% endif %}">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for page in pages.iter_pages() %}
+        <li {% if page== pages.page %}
+            class="page-item active"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="/blog?page={{ page }}{% if q %}&q={{ q }} {% endif %}">{{ page }}</a>
+        </li>
+        {% endfor %}
+        <li {% if not pages.has_next %}
+            class="page-item disabled"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="blog?page={{ pages.next_num }}{% if q %}&q={{ q }} {% endif %}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% else %}
+<nav>
+    <ul class="pagination justify-content-center">
+        <li {% if not pages.has_prev %}
+            class="page-item disabled"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="/blog/followed?page={{ pages.prev_num }}{% if q %}&q={{ q }} {% endif %}">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for page in pages.iter_pages() %}
+        <li {% if page== pages.page %}
+            class="page-item active"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="/blog/followed?page={{ page }}{% if q %}&q={{ q }} {% endif %}">{{ page }}</a>
+        </li>
+        {% endfor %}
+        <li {% if not pages.has_next %}
+            class="page-item disabled"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="blog/followed?page={{ pages.next_num }}{% if q %}&q={{ q }} {% endif %}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

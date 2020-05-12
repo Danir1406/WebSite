@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for user in pages.items %}
+<div class="card mb-3 m-2" style="max-width: 540px;">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="{{ user.avatar(128) }}" class="card-img">
+        </div>
+        <div class="col-md-6">
+            <div class="card-body">
+                <h5 class="card-title"><a href="user/{{ user.name }}">{{ user.name }}</a></h5>
+                <p class="card-text">{% if user.about %}{{ user.about }}{% endif %} </p>
+                <p class="card-text"><small class="text-muted">Last seen: {{ moment(user.last_seen).fromNow() }}</small>
+                </p>
+            </div>
+            {% if user != current_user %}
+            <div class="col-md-2">
+                <a role="button" class="btn btn-dark btn-sm" href="/chat/{{ user.name }}">Написать</a>
+            </div>
+            {% elif user == current_user %}
+            <div class="col-md-2">
+                <a role="button" class="btn btn-info btn-sm" href="edit_profile/{{ current_user.name }}">Редактировать</a>
+            </div>
+            {% endif %}
+            {% if not current_user.is_following(user) and current_user != user %}
+            <h1></h1>
+            <div class="col-md-2">
+                <a role="button" class="btn btn-success btn-sm" href="{{ url_for('follow', username=user.name) }}">Подписаться</a>
+            </div>
+            {% elif current_user.is_following(user) and current_user != user %}
+            <h1></h1>
+            <div class="col-md-2">
+                <a role="button" class="btn btn-warning btn-sm" href="{{ url_for('unfollow', username=user.name) }}">Отписаться</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+<nav>
+    <ul class="pagination justify-content-center">
+        <li {% if not pages.has_prev %}
+            class="page-item disabled"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="/users?page={{ pages.prev_num }}{% if q %}&q={{ q }} {% endif %}">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for page in pages.iter_pages() %}
+        <li {% if page== pages.page %}
+            class="page-item active"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="/users?page={{ page }}{% if q %}&q={{ q }} {% endif %}">{{ page }}</a>
+        </li>
+        {% endfor %}
+        <li {% if not pages.has_next %}
+            class="page-item disabled"
+            {% else %}
+            class="page-item"
+            {% endif %}>
+            <a class="page-link" href="/users?page={{ pages.next_num }}{% if q %}&q={{ q }} {% endif %}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endblock %}

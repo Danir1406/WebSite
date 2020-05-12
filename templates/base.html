@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+{% if message1 or message2 %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{ message1 }}</strong> {{ message2 }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+<body>
+<header>
+    <nav class="navbar navbar-expand-xl navbar-light" style="background-color: #DCDCDC;">
+        <a class="navbar-brand" href="#">
+            <svg class="bi bi-bootstrap-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M4.002 0a4 4 0 00-4 4v8a4 4 0 004 4h8a4 4 0 004-4V4a4 4 0 00-4-4h-8zm1.06 12h3.475c1.804 0 2.888-.908 2.888-2.396 0-1.102-.761-1.916-1.904-2.034v-.1c.832-.14 1.482-.93 1.482-1.816 0-1.3-.955-2.11-2.542-2.11H5.062V12zm1.313-4.875V4.658h1.78c.973 0 1.542.457 1.542 1.237 0 .802-.604 1.23-1.764 1.23H6.375zm0 3.762h1.898c1.184 0 1.81-.48 1.81-1.377 0-.885-.65-1.348-1.886-1.348H6.375v2.725z"
+                      clip-rule="evenodd"/>
+            </svg>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">
+                        <svg class="bi bi-house" width="1.3em" height="1.3em" viewBox="0 0 17 17" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M2 13.5V7h1v6.5a.5.5 0 00.5.5h9a.5.5 0 00.5-.5V7h1v6.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5zm11-11V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
+                                  clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                  d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        Home</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/users">
+                        <svg class="bi bi-people" width="1.4em" height="1.4em" viewBox="0 0 17 17" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.995-.944v-.002.002zM7.022 13h7.956a.274.274 0 00.014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 00.022.004zm7.973.056v-.002.002zM11 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zM6.936 9.28a5.88 5.88 0 00-1.23-.247A7.35 7.35 0 005 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 015 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 116 0 3 3 0 01-6 0zm3-2a2 2 0 100 4 2 2 0 000-4z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/chat">
+                        <svg class="bi bi-chat-square-dots-fill" width="1.3em" height="1.3em" viewBox="0 0 17 17"
+                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M0 2a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2h-2.5a1 1 0 00-.8.4l-1.9 2.533a1 1 0 01-1.6 0L5.3 12.4a1 1 0 00-.8-.4H2a2 2 0 01-2-2V2zm5 4a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        Chat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">
+                        <svg class="bi bi-layout-text-sidebar-reverse" width="1.3em" height="1.3em" viewBox="0 0 17 17"
+                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M2 1h12a1 1 0 011 1v12a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zm12-1a2 2 0 012 2v12a2 2 0 01-2 2H2a2 2 0 01-2-2V2a2 2 0 012-2h12z"
+                                  clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                  d="M5 15V1H4v14h1zm8-11.5a.5.5 0 00-.5-.5h-5a.5.5 0 000 1h5a.5.5 0 00.5-.5zm0 3a.5.5 0 00-.5-.5h-5a.5.5 0 000 1h5a.5.5 0 00.5-.5zm0 3a.5.5 0 00-.5-.5h-5a.5.5 0 000 1h5a.5.5 0 00.5-.5zm0 3a.5.5 0 00-.5-.5h-5a.5.5 0 000 1h5a.5.5 0 00.5-.5z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add_post">
+                        <svg class="bi bi-pencil" width="1.3em" height="1.3em" viewBox="0 0 17 17" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"
+                                  clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                  d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        Write Post</a>
+                </li>
+                {% endif %}
+                {% if k %}
+                <form class="form-inline my-2 my-lg-0" method="get">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                           name="q" value="{{ request.args.get('q', '') }}">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                {% endif %}
+            </ul>
+            {% if current_user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ current_user.avatar(34) }}"> {{ current_user.name }}</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/user/{{ current_user.name }}">Profile</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <form class="px-4 py-3" method="GET">
+                            <div class="form-group">
+                                <label for="exampleDropdownFormEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleDropdownFormEmail1"
+                                       placeholder="email@example.com" name="email"
+                                       value="{{ request.args.get('email', '') }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleDropdownFormPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleDropdownFormPassword1"
+                                       placeholder="Password" name="password"
+                                       value="{{ request.args.get('password', '') }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/register">Sign up</a>
+                        <a class="dropdown-item" href="/reset_password_email">Forgot password?(only for mail.ru
+                            users)</a>
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+</header>
+</body>
+</html>
+{% block content %}
+{% endblock %}
+
+{% block scripts %}
+{{ moment.include_moment() }}
+{{ moment.lang('ru') }}
+{% endblock %}

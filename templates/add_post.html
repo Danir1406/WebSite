@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title>Написание поста</title>
+<h1 style="text-align: center;">Написание поста</h1>
+<form method="POST">
+    <div class="form-group col-12">
+        <label for="validationCustom05">Название поста</label>
+        <input type="text" name="title" class="form-control"
+               id="validationCustom05" placeholder="Название поста" required>
+    </div>
+
+    <div class="form-group col-12">
+        <label for="exampleFormControlTextarea1">Текст поста</label>
+        <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
+    <div class="form-group col-md-12">
+        <button class="btn btn-success" type="submit">Добавить пост</button>
+    </div>
+</form>
+{% endblock %}

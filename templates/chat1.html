@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<html>
+<head>
+
+    <link href="/static/css/chats.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <h3 class=" text-center"></h3>
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Chat</h4>
+                    </div>
+                </div>
+                <div class="inbox_chat">
+                    {% for user in chats %}
+                    {% set last_message = chats[user][-1] %}
+                    {% set recipient = User.query.filter_by(id=last_message.sender_id).first() %}
+                    <div {% if user.name== username %} class="chat_list active_chat" {% else %}
+                         class="chat_list" {% endif %}>
+                        <div class="chat_people">
+                            <div class="chat_img"><img src="{{ user.avatar(20) }}" alt="sunil"></div>
+                            <div class="chat_ib">
+                                <h6><a href="/chat/{{ user.name }}">{{ user.name }}</a><span class="chat_date">{% if last_message.body != 'text' %}{{ moment(last_message.created_date).calendar() }}{% endif %}</span>
+                                </h6>
+                                {% if last_message.body != 'text' %}
+                                <p>{{ recipient.name }}:
+                                    {{ last_message.body[:20] }}...</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="mesgs">
+                <div class="msg_history">
+                    {% for message in messages %}
+                    {% if message.body != 'text' %}
+                    {% if current_user.id == message.recipient_id %}
+                    {% set user = User.query.filter_by(id=message.sender_id).first() %}
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"><img src="{{ user.avatar(20) }}"
+                                                           alt="sunil"></div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>{{ message.body }}</p>
+                                <span class="time_date">{{ moment(message.created_date).calendar() }}</span></div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="outgoing_msg">
+                        <div class="sent_msg">
+                            <p>{{ message.body }}</p>
+                            <span class="time_date">{{ moment(message.created_date).calendar() }}</span></div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="type_msg">
+                    <form method="POST">
+                        <div class="input_msg_write">
+                            <input type="text" name="message" class="write_msg" placeholder="Type a message"/>
+                            <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o"
+                                                                          aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

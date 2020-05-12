@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title>Редактирование профиля</title>
+<h1 style="text-align: center;">Редактирование профиля</h1>
+<form method="POST">
+    <div class="form-group col-12">
+        <label for="validationCustom05">Имя</label>
+        <input type="text" name="name" class="form-control"
+               id="validationCustom05" placeholder="Имя" value="{{ user.name }}" required>
+    </div>
+
+    <div class="form-group col-12">
+        <label for="exampleFormControlTextarea1">О вас</label>
+        <textarea class="form-control" name="about" id="exampleFormControlTextarea1" rows="3">{% if user.about %}{{ user.about }}{% endif %}</textarea>
+    </div>
+
+    <div class="form-group col-md-12">
+        <button class="btn btn-success" type="submit">Редактировать</button>
+    </div>
+</form>
+{% endblock %}
