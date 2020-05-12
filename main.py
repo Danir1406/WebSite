@@ -420,12 +420,12 @@ def send_password_reset_email(user):
     msg['Subject'] = 'Reset Password'
     url = url_for('reset_password', token=token, _external=True)
     user = user.name
-    html = f"""<p>Dear, {user}</p>
+    html = f"""<p>Dear {user}</p>
 <p>
     To reset your password
     <a href="{url}">
         click here
-    </a>.
+    </a>
 </p>
 <p>If you have not requested a password reset simply ignore this message.</p>
 <p>Sincerely</p>
