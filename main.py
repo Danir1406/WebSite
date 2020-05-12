@@ -427,7 +427,7 @@ def send_password_reset_email(user):
         click here
     </a>
 </p>
-<p>If you have not requested a password reset simply ignore this message.</p>
+<p>If you have not requested a password reset simply ignore this message</p>
 <p>Sincerely</p>
 <p>WebSite TeaM</p>"""
     msg.attach(MIMEText(html, 'html'))
