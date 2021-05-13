@@ -36,7 +36,7 @@
                                 <h6><a href="/chat/{{ user.name }}">{{ user.name }}</a><span class="chat_date">{% if last_message.body != 'text' %}{{ moment(last_message.created_date).calendar() }}{% endif %}</span>
                                 </h6>
                                 {% if last_message.body != 'text' %}
-                                <p>{{ recipient.name }}:
+                                <p class="text_">{{ recipient.name }}:
                                     {{ last_message.body[:20] }}...</p>
                                 {% endif %}
                             </div>

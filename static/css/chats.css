@@ -1,3 +1,7 @@
+.form{
+  background-image: linear-gradient(125deg,#2c3e50,#27ae60,#2980b9,#e74c3c,#8e44ad);
+  background-size: 400% 400%;
+}
 .container{max-width:1170px; margin:auto;}
 img{ max-width:100%;}
 .inbox_people {
@@ -80,7 +84,7 @@ img{ max-width:100%;}
   width: 100%;
 }
 .time_date {
-  color: #747474;
+  color: #00FFFF;
   display: block;
   font-size: 12px;
   margin: 8px 0 0;
